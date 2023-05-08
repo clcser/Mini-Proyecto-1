@@ -23,23 +23,40 @@ long long ListArr::size(void)
 
 void ListArr::insert_left(int v)
 {
-    head->insert(v, 0);
+    bool shouldBuild = false;
+    head->insert(v, 0, shouldBuild);
+
+    if (shouldBuild)
+        build();
+    else
+        propagate(head);
 }
 
 void ListArr::insert_right(int v)
 {
-    tail->insert(v, tail->capacity);
+    bool shouldBuild = false;
+    tail->insert(v, tail->capacity, shouldBuild);
 
-    if (tail->next != nullptr)
+    if (shouldBuild) {
         tail = tail->next;
+        build();
+    } else {
+        propagate(tail);
+    }
 }
 
 void ListArr::insert(int v, long long i)
 {
     ArrNode* node;
     int index;
-    node = binarySearch(i, &index);
-    node->insert(v,index);
+    bool shouldBuild = false;
+    node = binarySearch(i, index);
+    node->insert(v, index, shouldBuild);
+
+    if (shouldBuild)
+        build();
+    else
+        propagate(node);
 }
 
 void ListArr::print(void)
@@ -105,29 +122,44 @@ void ListArr::build(void)
     currLevel.clear();
 }
 
-ArrNode* ListArr::binarySearch(long long index, int* subIndex) 
+void ListArr::propagate(Node *u)
 {
-    if(index < 0 || index > root->buffer) {
-        throw "Out of bounds.";
-    }
+    u = u->parent;
 
-    SummaryNode* node = root;
-    while(index > head->buffer) {
+    while (u != nullptr) {
+        (u->capacity)++;
+        u = u->parent;
+    }
+}
+
+ArrNode *ListArr::binarySearch(long long index, long long &subIndex) 
+{
+    try {
+        if(index < 0 || index > root->buffer) {
+            throw "Out of bounds.";
+        }
+
+        SummaryNode* node = root;
+        while(index > head->buffer) {
+            if(index <= node->left->capacity) {
+                node = (SummaryNode *) node->left;
+            }
+            else {
+                index -= node->left->capacity;
+                node = (SummaryNode *) node->right;
+            }
+        }
         if(index <= node->left->capacity) {
-            node = (SummaryNode *) node->left;
+            subIndex = index;
+            return (ArrNode *) node->left;
         }
         else {
             index -= node->left->capacity;
-            node = (SummaryNode *) node->right;
+            subIndex = index;
+            return (ArrNode *) node->left;
         }
-    }
-    if(index <= node->left->capacity) {
-        subIndex = (int *) &index;
-        return (ArrNode *) node->left;
-    }
-    else {
-        index -= node->left->capacity;
-        subIndex = (int *) &index;
-        return (ArrNode *) node->left;
+    } catch (const char *msg) {
+        std::cerr << msg << std::endl;
+        exit(EXIT_FAILURE);
     }
 }

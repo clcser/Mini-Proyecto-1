@@ -1,7 +1,7 @@
 #include "Node.h"
 #include "SummaryNode.h"
 
-SummaryNode::SummaryNode(Node *l, Node *r) : Node(0, 0)
+SummaryNode::SummaryNode(Node *l, Node *r) : Node(0, nullptr)
 {
     left = l;
     right = r;

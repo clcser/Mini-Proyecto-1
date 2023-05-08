@@ -46,17 +46,20 @@ int ArrNode::get(long long i)
     }
 }
 
-void ArrNode::insert(int v, long long i)
+void ArrNode::insert(int v, long long i, bool &shouldBuild)
 {
     try {
         if (i < 0 or capacity < i)
             throw "Cannot insert: out of bounds.";
 
         if (full()) {
-            if (next == nullptr)
+            if (next == nullptr) {
                 next = new ArrNode(buffer, nullptr);
-            else if (next->full())
+                shouldBuild = true;
+            } else if (next->full()) {
                 next = new ArrNode(buffer, next);
+                shouldBuild = true;
+            }
 
             if (i != capacity) {
                 next->insert(data[buffer - 1], 0);
