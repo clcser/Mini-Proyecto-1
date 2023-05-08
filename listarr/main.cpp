@@ -20,7 +20,7 @@ int main() {
     duration = 0;
     //medir tiempo insert left
     for(int j = 0; j<20; j++) {
-        ListArr* la = new ListArr(b);
+        la = new ListArr(b);
 
         for(int i = 0; i < n; i++) {
             auto start = chrono::high_resolution_clock::now();
@@ -42,12 +42,12 @@ int main() {
     duration = 0;
 
     for(int j = 0; j<20; j++) {
-        ListArr* la = new ListArr(b);
+        la = new ListArr(b);
 
         for(int i = 0; i < n; i++) {
             auto start = chrono::high_resolution_clock::now();
 
-            la->insert_right(n+i);
+            la->insert_right(i);  
 
             auto end = chrono::high_resolution_clock::now();
             chrono::duration<double> diff = end - start;
@@ -58,21 +58,22 @@ int main() {
     }
     cout << "Tiempo promedio insert-right: " << avgTime/(n*20) << endl;
 
-    
     avgTime = 0;
     duration = 0;
     //medir tiempo find
-    for(int i = 0; i*i < n; i++) {
-        auto start = chrono::high_resolution_clock::now();
-        
-        la->find(i);
+    for(int j = 0; j<20; j++) {
+        for(int i = 0; i*i < n; i++) {
+            auto start = chrono::high_resolution_clock::now();
+            
+            la->find(i);
 
-        auto end = chrono::high_resolution_clock::now();
-	    chrono::duration<double> diff = end - start;
-        duration = diff.count();
-        avgTime += duration;
+            auto end = chrono::high_resolution_clock::now();
+            chrono::duration<double> diff = end - start;
+            duration = diff.count();
+            avgTime += duration;
+        }
     }
-    cout << "Tiempo promedio find: " << avgTime/n << endl;
+    cout << "Tiempo promedio find: " << avgTime/(n*20) << endl;
 
     //la->print();
     cout << endl;
