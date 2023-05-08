@@ -7,7 +7,7 @@
 ListArr::ListArr(long long b)
 {
     head = new ArrNode(b, new ArrNode(b, nullptr));
-    root = new SummaryNode(b, head, head->next);
+    root = new SummaryNode(head, head->next);
 }
 
 ListArr::~ListArr(void)
@@ -74,7 +74,7 @@ void ListArr::build(void)
     while (currLevel.size() != 1) {
         for (i = 0; i < prevLevel.size(); i += 2) {
             if (i != prevLevel.size() - 1)
-                currLevel.push_back(new SummaryNode(v->buffer, prevLevel[i], prevLevel[i + 1]));
+                currLevel.push_back(new SummaryNode(prevLevel[i], prevLevel[i + 1]));
             else
                 currLevel.push_back(prevLevel[i]);
         }
@@ -91,5 +91,5 @@ void ListArr::build(void)
 
 ArrNode* ListArr::binarySearch(long long index, int* subIndex) 
 {
-
+    if(index < 0 || index > root)
 }

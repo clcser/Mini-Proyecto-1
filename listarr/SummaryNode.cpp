@@ -1,10 +1,8 @@
 #include "Node.h"
 #include "SummaryNode.h"
 
-SummaryNode::SummaryNode(Node *l, Node *r)
+SummaryNode::SummaryNode(Node *l, Node *r) : Node(0, 0)
 {
-    capacity = 0;
-    buffer = 0;
     left = l;
     right = r;
 
