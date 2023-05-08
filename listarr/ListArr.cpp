@@ -36,6 +36,10 @@ void ListArr::insert_right(int v)
 
 void ListArr::insert(int v, long long i)
 {
+    ArrNode* node;
+    int index;
+    node = binarySearch(i, &index);
+    node->insert(v,index);
 }
 
 void ListArr::print(void)
@@ -61,7 +65,7 @@ bool ListArr::find(int v)
     ArrNode *u = head;
 
     while (u != nullptr) {
-        for (i = 0; i < u->capacity; i++)
+        for (int i = 0; i < u->capacity; i++)
             if (u->get(i) == v)
                 return true;
 
@@ -101,6 +105,29 @@ void ListArr::build(void)
     currLevel.clear();
 }
 
-ArrNode *ListArr::binarySearch(long long index, int *subIndex) 
+ArrNode* ListArr::binarySearch(long long index, int* subIndex) 
 {
+    if(index < 0 || index > root->buffer) {
+        throw "Out of bounds.";
+    }
+
+    SummaryNode* node = root;
+    while(index > head->buffer) {
+        if(index <= node->left->capacity) {
+            node = (SummaryNode *) node->left;
+        }
+        else {
+            index -= node->left->capacity;
+            node = (SummaryNode *) node->right;
+        }
+    }
+    if(index <= node->left->capacity) {
+        subIndex = (int *) &index;
+        return (ArrNode *) node->left;
+    }
+    else {
+        index -= node->left->capacity;
+        subIndex = (int *) &index;
+        return (ArrNode *) node->left;
+    }
 }
