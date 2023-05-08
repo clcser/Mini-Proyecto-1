@@ -11,6 +11,7 @@ class SummaryNode : public Node
 
         SummaryNode(Node *l, Node *r);
         ~SummaryNode(void);
+        void remove(Node *u);
 };
 
 #endif

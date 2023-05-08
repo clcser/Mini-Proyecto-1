@@ -8,6 +8,7 @@ class Node {
 
         Node(long long buf, Node *p);
         ~Node(void);
+        void orphan(void);
 };
 
 #endif

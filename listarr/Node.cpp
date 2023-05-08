@@ -13,3 +13,8 @@ Node::~Node(void)
     buffer = 0;
     parent = nullptr;
 }
+
+void Node::orphan(void)
+{
+    parent = nullptr;
+}
