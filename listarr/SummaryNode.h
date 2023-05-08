@@ -9,7 +9,7 @@ class SummaryNode : public Node
         Node *left;
         Node *right;
 
-        SummaryNode(long long buf, Node *l, Node *r);
+        SummaryNode(Node *l, Node *r);
         ~SummaryNode(void);
 };
 
