@@ -58,6 +58,17 @@ void ListArr::print(void)
 
 bool ListArr::find(int v)
 {
+    ArrNode *u = head;
+
+    while (u != nullptr) {
+        for (i = 0; i < u->capacity; i++)
+            if (u->get(i) == v)
+                return true;
+
+        u = u->next;
+    }
+
+    return false;
 }
 
 void ListArr::build(void)

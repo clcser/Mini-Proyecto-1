@@ -21,7 +21,7 @@ class ListArr
         void print(void);
         bool find(int v);
         void build(void);
-        ArrNode* binarySearch(long long index, int* subIndex);
+        ArrNode *binarySearch(long long index, int *subIndex);
 };
 
 #endif
