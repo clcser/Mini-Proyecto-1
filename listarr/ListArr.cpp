@@ -94,6 +94,9 @@ bool ListArr::find(int v)
 
 void ListArr::build(void)
 {
+    if (head == nullptr)
+        return;
+
     std::vector<Node *> prevLevel;
     std::vector<Node *> currLevel;
     ArrNode *u = head;
@@ -101,25 +104,31 @@ void ListArr::build(void)
 
     while (u != nullptr) {
         prevLevel.push_back(u);
+
+        // Unlink needed so that when old root is deleted,
+        // ListArr data is not.
+        if (u->parent != nullptr)
+            ((SummaryNode *) (u->parent))->remove(u);
+        u->orphan();
+
         u = u->next;
     }
 
     while (prevLevel.size() != 1) {
-        for (i = 0; i < prevLevel.size(); i += 2) {
-            if (i != prevLevel.size() - 1)
-                currLevel.push_back(new SummaryNode(prevLevel[i], prevLevel[i + 1]));
-            else
-                currLevel.push_back(prevLevel[i]);
-        }
+        for (i = 0; i < prevLevel.size() - (prevLevel.size() % 2); i += 2)
+            currLevel.push_back(new SummaryNode(prevLevel[i], prevLevel[i + 1]));
+
+        if (prevLevel.size() % 2 == 1)
+            currLevel.push_back(prevLevel[prevLevel.size() - 1]);
 
         prevLevel = currLevel;
         currLevel.clear();
     }
 
-    root = (SummaryNode *) prevLevel[0];
+    if (root != nullptr)
+        delete root;
 
-    prevLevel.clear();
-    currLevel.clear();
+    root = (SummaryNode *) prevLevel[0];
 }
 
 void ListArr::propagate(Node *u)
@@ -135,29 +144,23 @@ void ListArr::propagate(Node *u)
 ArrNode *ListArr::binarySearch(long long index, long long &subIndex) 
 {
     try {
-        if(index < 0 || index > root->buffer) {
+        if(index < 0 || index > root->capacity) {
             throw "Out of bounds.";
         }
 
         SummaryNode* node = root;
         while(index > head->buffer) {
-            if(index <= node->left->capacity) {
+            if(index <= (node->left)->capacity) {
                 node = (SummaryNode *) node->left;
             }
             else {
-                index -= node->left->capacity;
+                index -= (node->left)->capacity;
                 node = (SummaryNode *) node->right;
             }
         }
-        if(index <= node->left->capacity) {
-            subIndex = index;
-            return (ArrNode *) node->left;
-        }
-        else {
-            index -= node->left->capacity;
-            subIndex = index;
-            return (ArrNode *) node->left;
-        }
+
+        subIndex = index;
+        return (ArrNode *) node;
     } catch (const char *msg) {
         std::cerr << msg << std::endl;
         exit(EXIT_FAILURE);
