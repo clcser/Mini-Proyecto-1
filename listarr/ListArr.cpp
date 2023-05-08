@@ -22,10 +22,15 @@ long long ListArr::size(void)
 
 void ListArr::insert_left(int v)
 {
+    head->insert(v,0);
 }
 
 void ListArr::insert_right(int v)
 {
+    ArrNode* node;
+    int i;
+    node = binarySearch(root->buffer, &i);
+    node->insert(v,i);
 }
 
 void ListArr::insert(int v, long long i)
@@ -82,4 +87,9 @@ void ListArr::build(void)
 
     prevLevel.clear();
     currLevel.clear();
+}
+
+ArrNode* ListArr::binarySearch(long long index, int* subIndex) 
+{
+
 }

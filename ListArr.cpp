@@ -18,6 +18,10 @@ void ListArr::insert(int data, int index) {
 }
 
 void ListArr::insert_left(int data) {
+    
+}
+
+void ListArr::insert_right(int data) {
 
 }
 
