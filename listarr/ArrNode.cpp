@@ -10,7 +10,7 @@ ArrNode::ArrNode(long long buf, ArrNode *n) : Node(buf, nullptr)
 
 ArrNode::~ArrNode(void)
 {
-    delete[] data;
+    delete data;
 
     // Since nodes are only deleted in ~ListArr, which deletes the whole tree,
     // it is not needed to delete the next node in the list.

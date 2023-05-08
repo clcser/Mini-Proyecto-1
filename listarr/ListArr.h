@@ -8,6 +8,7 @@ class ListArr
 {
     private:
         ArrNode *head;
+        ArrNode *tail;
         SummaryNode *root;
 
     public:

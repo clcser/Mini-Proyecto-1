@@ -1,15 +1,24 @@
 #include "Node.h"
 #include "SummaryNode.h"
 
-SummaryNode::SummaryNode(long long buf, Node *l, Node *r) : Node(buf, nullptr)
+SummaryNode::SummaryNode(Node *l, Node *r)
 {
-    capacity = l->capacity + r->capacity;
-    buffer = l->capacity + r->capacity;
+    capacity = 0;
+    buffer = 0;
     left = l;
     right = r;
 
-    l->parent = this;
-    r->parent = this;
+    if (l != nullptr) {
+        capacity += l->capacity;
+        buffer += l->buffer;
+        l->parent = this;
+    }
+
+    if (r != nullptr) {
+        capacity += r->capacity;
+        buffer += r->buffer;
+        r->parent = this;
+    }
 }
 
 SummaryNode::~SummaryNode(void)
