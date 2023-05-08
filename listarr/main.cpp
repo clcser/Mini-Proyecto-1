@@ -12,6 +12,8 @@ int main() {
     srand(time(NULL));
     double avgTime;
     double duration;
+
+    cout << "20 repeticiones de " << n << " casos, con b = " << b << endl << endl;
     
     //crear ListArr
     ListArr* la = new ListArr(b);
