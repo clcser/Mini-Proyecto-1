@@ -11,7 +11,7 @@ class SummaryNode : public Node
 
         SummaryNode(Node *l, Node *r);
         ~SummaryNode(void);
-        void remove(Node *u);
+        void remove(Node *u); // remove reference to whichever children u is
 };
 
 #endif

@@ -7,6 +7,8 @@ SummaryNode::SummaryNode(Node *l, Node *r) : Node(0, nullptr)
     left = l;
     right = r;
 
+    // capacity and buffer should be the sum of their children's
+
     if (l != nullptr) {
         capacity += l->capacity;
         buffer += l->buffer;

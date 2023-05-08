@@ -40,7 +40,7 @@ void ListArr::insert_right(int v)
     tail->insert(v, tail->capacity, shouldBuild);
 
     if (shouldBuild) {
-        tail = tail->next;
+        tail = tail->next; // since tail has no next, and we should build, we must update reference
         build();
     } else {
         propagate(tail);
@@ -120,6 +120,8 @@ void ListArr::build(void)
         for (i = 0; i < prevLevel.size() - (prevLevel.size() % 2); i += 2)
             currLevel.push_back(new SummaryNode(prevLevel[i], prevLevel[i + 1]));
 
+        // if node has no partner combine with upper levels
+        // this fixes issue for non complete binary trees
         if (prevLevel.size() % 2 == 1)
             currLevel.push_back(prevLevel[prevLevel.size() - 1]);
 
@@ -137,6 +139,7 @@ void ListArr::propagate(Node *u)
 {
     u = u->parent;
 
+    // traverse upwards updating capacity
     while (u != nullptr) {
         (u->capacity)++;
         u = u->parent;
@@ -149,6 +152,7 @@ ArrNode *ListArr::binarySearch(long long index, long long &subIndex)
         if(index < 0 || index > root->capacity)
             throw "Cannot search: out of bounds.";
 
+        // exit condition is valid since only ArrNodes have buffer equal to the ListArr buffer
         SummaryNode *node = root;
         while (node->buffer != buffer) {
             if(index <= (node->left)->capacity) {

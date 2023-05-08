@@ -13,8 +13,8 @@ class ArrNode : public Node
 
         ArrNode(long long buf, ArrNode *n);
         ~ArrNode(void);
-        void set(int v, long long i);
-        int get(long long i);
+        void set(int v, long long i); // data[i] = v
+        int get(long long i); // return data[i]
         void insert(int v, long long i, bool &shouldBuild);
         bool full(void);
 };

@@ -20,10 +20,10 @@ class ListArr
         void insert_right(int v);
         void insert(int v, long long i);
         void print(void);
-        bool find(int v);
-        void build(void);
-        void propagate(Node *u);
-        ArrNode *binarySearch(long long index, long long &subIndex);
+        bool find(int v); // linear search by element value lookup
+        void build(void); // build tree and assign root to root
+        void propagate(Node *u); // increase capacity by 1 from a list node all the way to the root
+        ArrNode *binarySearch(long long index, long long &subIndex); // find node that contains index
 };
 
 #endif

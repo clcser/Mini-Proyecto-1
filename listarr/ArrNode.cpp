@@ -46,12 +46,14 @@ int ArrNode::get(long long i)
     }
 }
 
+// shouldBuild is a flag that indicates if ListArr tree should be rebuilt
 void ArrNode::insert(int v, long long i, bool &shouldBuild)
 {
     try {
         if (i < 0 or capacity < i)
             throw "Cannot insert: out of bounds.";
 
+        // If there is no space, create new node and shift accordingly
         if (full()) {
             if (next == nullptr) {
                 next = new ArrNode(buffer, nullptr);
@@ -61,6 +63,7 @@ void ArrNode::insert(int v, long long i, bool &shouldBuild)
                 shouldBuild = true;
             }
 
+            // Inserting at capacity requires no shifts since node is full
             if (i != capacity) {
                 next->insert(data[buffer - 1], 0, shouldBuild);
 
