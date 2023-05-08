@@ -6,8 +6,9 @@
 
 ListArr::ListArr(long long b)
 {
-    head = new ArrNode(b, new ArrNode(b, nullptr));
-    root = new SummaryNode(head, head->next);
+    tail = new ArrNode(b, nullptr);
+    head = new ArrNode(b, tail);
+    root = new SummaryNode(head, tail);
 }
 
 ListArr::~ListArr(void)
@@ -22,15 +23,15 @@ long long ListArr::size(void)
 
 void ListArr::insert_left(int v)
 {
-    head->insert(v,0);
+    head->insert(v, 0);
 }
 
 void ListArr::insert_right(int v)
 {
-    ArrNode* node;
-    int i;
-    node = binarySearch(root->buffer, &i);
-    node->insert(v,i);
+    tail->insert(v, tail->capacity);
+
+    if (tail->next != nullptr)
+        tail = tail->next;
 }
 
 void ListArr::insert(int v, long long i)
@@ -39,19 +40,19 @@ void ListArr::insert(int v, long long i)
 
 void ListArr::print(void)
 {
-    ArrNode *v = head;
+    ArrNode *u = head;
     long long i, j;
 
     j = 1;
-    while (v != nullptr) {
+    while (u != nullptr) {
         std::cout << "Node " << j << ": ";
 
-        for (i = 0; i < v->capacity; i++)
-            std::cout << v->get(i) << " ";
+        for (i = 0; i < u->capacity; i++)
+            std::cout << u->get(i) << " ";
 
         std::cout << std::endl;
 
-        v = v->next;
+        u = u->next;
     }
 }
 
@@ -63,12 +64,12 @@ void ListArr::build(void)
 {
     std::vector<Node *> prevLevel;
     std::vector<Node *> currLevel;
-    ArrNode *v = head;
+    ArrNode *u = head;
     long long i;
 
-    while (v != nullptr) {
-        prevLevel.push_back(v);
-        v = v->next;
+    while (u != nullptr) {
+        prevLevel.push_back(u);
+        u = u->next;
     }
 
     while (currLevel.size() != 1) {
@@ -89,7 +90,6 @@ void ListArr::build(void)
     currLevel.clear();
 }
 
-ArrNode* ListArr::binarySearch(long long index, int* subIndex) 
+ArrNode *ListArr::binarySearch(long long index, int *subIndex) 
 {
-    if(index < 0 || index > root)
 }

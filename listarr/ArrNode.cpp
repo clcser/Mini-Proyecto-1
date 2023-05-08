@@ -58,18 +58,23 @@ void ArrNode::insert(int v, long long i)
             else if (next->full())
                 next = new ArrNode(buffer, next);
 
-            next->insert(data[buffer - 1], 0);
+            if (i != capacity) {
+                next->insert(data[buffer - 1], 0);
 
-            for (long long j = buffer - 1; j > i; j--)
-                data[j] = data[j - 1];
+                for (long long j = buffer - 1; j > i; j--)
+                    data[j] = data[j - 1];
+
+                data[i] = v;
+            } else {
+                next->insert(v, 0);
+            }
         } else {
             for (long long j = capacity; j > i; j--)
                 data[j] = data[j - 1];
 
+            data[i] = v;
             capacity++;
         }
-
-        data[i] = v;
     } catch (const char *msg) {
         std::cerr << msg << std::endl;
         exit(EXIT_FAILURE);
