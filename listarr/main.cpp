@@ -64,7 +64,7 @@ int main() {
     duration = 0;
     //medir tiempo find
     for(int j = 0; j<20; j++) {
-        for(int i = 0; i*i < n; i++) {
+        for(int i = 0; i < n; i++) {
             auto start = chrono::high_resolution_clock::now();
             
             la->find(i);
