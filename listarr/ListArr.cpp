@@ -6,6 +6,7 @@
 
 ListArr::ListArr(long long b)
 {
+    buffer = b;
     tail = new ArrNode(b, nullptr);
     head = new ArrNode(b, tail);
     root = new SummaryNode(head, tail);
@@ -13,6 +14,7 @@ ListArr::ListArr(long long b)
 
 ListArr::~ListArr(void)
 {
+    buffer = 0;
     delete root;
 }
 
@@ -144,16 +146,14 @@ void ListArr::propagate(Node *u)
 ArrNode *ListArr::binarySearch(long long index, long long &subIndex) 
 {
     try {
-        if(index < 0 || index > root->capacity) {
-            throw "Out of bounds.";
-        }
+        if(index < 0 || index > root->capacity)
+            throw "Cannot search: out of bounds.";
 
-        SummaryNode* node = root;
-        while(index > head->buffer) {
+        SummaryNode *node = root;
+        while (node->buffer != buffer) {
             if(index <= (node->left)->capacity) {
                 node = (SummaryNode *) node->left;
-            }
-            else {
+            } else {
                 index -= (node->left)->capacity;
                 node = (SummaryNode *) node->right;
             }

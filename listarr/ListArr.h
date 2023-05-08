@@ -7,6 +7,7 @@
 class ListArr
 {
     private:
+        long long buffer;
         ArrNode *head;
         ArrNode *tail;
         SummaryNode *root;
