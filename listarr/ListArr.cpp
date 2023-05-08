@@ -48,7 +48,7 @@ void ListArr::insert_right(int v)
 void ListArr::insert(int v, long long i)
 {
     ArrNode* node;
-    int index;
+    long long index;
     bool shouldBuild = false;
     node = binarySearch(i, index);
     node->insert(v, index, shouldBuild);
@@ -64,9 +64,9 @@ void ListArr::print(void)
     ArrNode *u = head;
     long long i, j;
 
-    j = 1;
+    j = 0;
     while (u != nullptr) {
-        std::cout << "Node " << j << ": ";
+        std::cout << "Node " << ++j << ": ";
 
         for (i = 0; i < u->capacity; i++)
             std::cout << u->get(i) << " ";
@@ -104,7 +104,7 @@ void ListArr::build(void)
         u = u->next;
     }
 
-    while (currLevel.size() != 1) {
+    while (prevLevel.size() != 1) {
         for (i = 0; i < prevLevel.size(); i += 2) {
             if (i != prevLevel.size() - 1)
                 currLevel.push_back(new SummaryNode(prevLevel[i], prevLevel[i + 1]));
@@ -116,7 +116,7 @@ void ListArr::build(void)
         currLevel.clear();
     }
 
-    root = (SummaryNode *) currLevel[0];
+    root = (SummaryNode *) prevLevel[0];
 
     prevLevel.clear();
     currLevel.clear();

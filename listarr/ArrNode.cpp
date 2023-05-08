@@ -62,14 +62,14 @@ void ArrNode::insert(int v, long long i, bool &shouldBuild)
             }
 
             if (i != capacity) {
-                next->insert(data[buffer - 1], 0);
+                next->insert(data[buffer - 1], 0, shouldBuild);
 
                 for (long long j = buffer - 1; j > i; j--)
                     data[j] = data[j - 1];
 
                 data[i] = v;
             } else {
-                next->insert(v, 0);
+                next->insert(v, 0, shouldBuild);
             }
         } else {
             for (long long j = capacity; j > i; j--)

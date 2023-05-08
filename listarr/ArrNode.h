@@ -15,7 +15,7 @@ class ArrNode : public Node
         ~ArrNode(void);
         void set(int v, long long i);
         int get(long long i);
-        void insert(int v, long long i);
+        void insert(int v, long long i, bool &shouldBuild);
         bool full(void);
 };
 
