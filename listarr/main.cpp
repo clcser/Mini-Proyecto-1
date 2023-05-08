@@ -32,7 +32,7 @@ int main() {
             duration = diff.count();
             avgTime += duration;
         }
-         cout << "Tiempo promedio insert-left: " << avgTime/(n) << endl;
+        //cout << "Tiempo promedio insert-left: " << avgTime/(n) << endl;
     }
     cout << "Tiempo promedio insert-left: " << avgTime/(n*20) << endl;
     
@@ -54,7 +54,7 @@ int main() {
             duration = diff.count();
             avgTime += duration;
         }
-        cout << "Tiempo promedio insert-right: " << avgTime/(n) << endl;
+        //cout << "Tiempo promedio insert-right: " << avgTime/(n) << endl;
     }
     cout << "Tiempo promedio insert-right: " << avgTime/(n*20) << endl;
 
