@@ -10,7 +10,7 @@ ArrNode::ArrNode(long long buf, ArrNode *n) : Node(buf, nullptr)
 
 ArrNode::~ArrNode(void)
 {
-    delete data;
+    delete[] data;
 
     // Since nodes are only deleted in ~ListArr, which deletes the whole tree,
     // it is not needed to delete the next node in the list.
@@ -54,9 +54,9 @@ void ArrNode::insert(int v, long long i)
 
         if (full()) {
             if (next == nullptr)
-                next = new ArrNode(buf, nullptr);
-            else if (next->full)
-                next = new ArrNode(buf, next);
+                next = new ArrNode(buffer, nullptr);
+            else if (next->full())
+                next = new ArrNode(buffer, next);
 
             next->insert(data[buffer - 1], 0);
 

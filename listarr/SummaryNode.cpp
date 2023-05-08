@@ -1,7 +1,7 @@
 #include "Node.h"
 #include "SummaryNode.h"
 
-SummaryNode::SummaryNode(Node *l, Node *r)
+SummaryNode::SummaryNode(long long buf, Node *l, Node *r) : Node(buf, nullptr)
 {
     capacity = l->capacity + r->capacity;
     buffer = l->capacity + r->capacity;

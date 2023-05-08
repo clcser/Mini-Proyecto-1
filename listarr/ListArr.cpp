@@ -1,3 +1,4 @@
+#include <iostream>
 #include <vector>
 #include "ListArr.h"
 #include "ArrNode.h"
@@ -6,7 +7,7 @@
 ListArr::ListArr(long long b)
 {
     head = new ArrNode(b, new ArrNode(b, nullptr));
-    root = new SummaryNode(head, head->next);
+    root = new SummaryNode(b, head, head->next);
 }
 
 ListArr::~ListArr(void)
@@ -38,7 +39,7 @@ void ListArr::print(void)
 
     j = 1;
     while (v != nullptr) {
-        std::cout << "Node " << j ": ";
+        std::cout << "Node " << j << ": ";
 
         for (i = 0; i < v->capacity; i++)
             std::cout << v->get(i) << " ";
@@ -55,9 +56,9 @@ bool ListArr::find(int v)
 
 void ListArr::build(void)
 {
-    vector<Node *> prevLevel;
-    vector<Node *> currLevel;
-    Node *v = head;
+    std::vector<Node *> prevLevel;
+    std::vector<Node *> currLevel;
+    ArrNode *v = head;
     long long i;
 
     while (v != nullptr) {
@@ -68,7 +69,7 @@ void ListArr::build(void)
     while (currLevel.size() != 1) {
         for (i = 0; i < prevLevel.size(); i += 2) {
             if (i != prevLevel.size() - 1)
-                currLevel.push_back(new SummaryNode(prevLevel[i], prevLevel[i + 1]));
+                currLevel.push_back(new SummaryNode(v->buffer, prevLevel[i], prevLevel[i + 1]));
             else
                 currLevel.push_back(prevLevel[i]);
         }
@@ -77,7 +78,7 @@ void ListArr::build(void)
         currLevel.clear();
     }
 
-    root = (SummaryNode) currLevel[0];
+    root = (SummaryNode *) currLevel[0];
 
     prevLevel.clear();
     currLevel.clear();
