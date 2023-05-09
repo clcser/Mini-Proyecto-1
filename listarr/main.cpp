@@ -1,10 +1,11 @@
 #include <iostream>
 #include <chrono>
+#include <math.h>
 #include <time.h>
 #include "ListArr.h"
 
-long long b = 64;
-long long n = 10e3;
+long long b = 1024;
+long long n = pow(2,14);
 
 using namespace std;
 
@@ -22,6 +23,7 @@ int main() {
     duration = 0;
     //medir tiempo insert left
     for(int j = 0; j<20; j++) {
+        //delete la;
         la = new ListArr(b);
 
         for(int i = 0; i < n; i++) {
@@ -34,7 +36,7 @@ int main() {
             duration = diff.count();
             avgTime += duration;
         }
-        //cout << "Tiempo promedio insert-left: " << avgTime/(n) << endl;
+        //cout << "Tiempo " << j+1 << ": " << avgTime/(n) << endl;
     }
     cout << "Tiempo promedio insert-left: " << avgTime/(n*20) << endl;
     
@@ -46,7 +48,7 @@ int main() {
     for(int j = 0; j<20; j++) {
         la = new ListArr(b);
 
-        for(int i = 0; i < n; i++) {
+        for(int i = 0; i*i < n; i++) {
             auto start = chrono::high_resolution_clock::now();
 
             la->insert_right(i);  
@@ -56,7 +58,7 @@ int main() {
             duration = diff.count();
             avgTime += duration;
         }
-        //cout << "Tiempo promedio insert-right: " << avgTime/(n) << endl;
+        //cout << "Tiempo " << j+1 << ": " << avgTime/(n) << endl;
     }
     cout << "Tiempo promedio insert-right: " << avgTime/(n*20) << endl;
 
@@ -74,6 +76,7 @@ int main() {
             duration = diff.count();
             avgTime += duration;
         }
+        //cout << "Tiempo " << j+1 << ": " << avgTime/(n) << endl;
     }
     cout << "Tiempo promedio find: " << avgTime/(n*20) << endl;
 

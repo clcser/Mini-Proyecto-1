@@ -8,7 +8,7 @@ ListArr::ListArr(long long b)
 {
     try {
         if (b <= 0)
-            throw "Invalid buffer size."
+            throw "Invalid buffer size.";
 
         buffer = b;
         tail = new ArrNode(b, nullptr);
