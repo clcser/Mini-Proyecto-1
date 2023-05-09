@@ -6,10 +6,17 @@
 
 ListArr::ListArr(long long b)
 {
-    buffer = b;
-    tail = new ArrNode(b, nullptr);
-    head = new ArrNode(b, tail);
-    root = new SummaryNode(head, tail);
+    try {
+        if (b <= 0)
+            throw "Invalid buffer size."
+
+        buffer = b;
+        tail = new ArrNode(b, nullptr);
+        head = new ArrNode(b, tail);
+        root = new SummaryNode(head, tail);
+    } catch (const char *msg) {
+        std::cerr << msg << std::endl;
+    }
 }
 
 ListArr::~ListArr(void)
